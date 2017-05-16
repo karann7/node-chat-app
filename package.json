@@ -23,6 +23,7 @@
   "homepage": "https://github.com/karann7/node-chat-app#readme",
   "dependencies": {
     "express": "^4.15.2",
+    "moment": "^2.18.1",
     "socket.io": "^2.0.1"
   },
   "devDependencies": {
