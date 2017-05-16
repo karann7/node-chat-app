@@ -1,0 +1,26 @@
+{
+  "name": "node-chat-app",
+  "version": "1.0.0",
+  "description": "A Realtime socket.io app with node.js",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/karann7/node-chat-app.git"
+  },
+  "engines": {
+    "node": "6.10.3"
+  },
+  "author": "Karan Singh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/karann7/node-chat-app/issues"
+  },
+  "homepage": "https://github.com/karann7/node-chat-app#readme",
+  "dependencies": {
+    "express": "^4.15.2"
+  }
+}
