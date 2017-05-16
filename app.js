@@ -26,10 +26,10 @@ io.on('connection', (socket)=>{
 //takes a incoming message, and sends it to other connected sockets
   socket.on('createMessage', (message, callback)=>{
 
-  console.log('The message is : ', message);
+  console.log(message);
 
   io.emit('newMessage', generateMessage(message.from, message.text));
-  callback(`Read:  ${message.text}`);
+  callback();
   });
   
   socket.on('createLocationMessage', (coords)=>{
