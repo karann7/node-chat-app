@@ -16,19 +16,24 @@ const io          = socketIO(server);
 app.use(express.static(publicPath));
 // All the events must be included in the io.on block
 io.on('connection', (socket)=>{
-    console.log('new user connected');
-    //sends welcome message upon page entry
-    socket.emit('newMessage', generateMessage('Admin', 'Welcome to the chat app'));
-    //sends  message to everyone but the current socket.
-    socket.broadcast.emit('newMessage', generateMessage('Admin', 'New user joined'));
-   //takes a incoming message, and sends it to other connected sockets
-    socket.on('createMessage', (message)=>{
-    console.log('The message is : ', message);
-    io.emit('newMessage', generateMessage(message.from, message.text));
-    });
-    socket.on('disconnect', ()=>{
-        console.log('User was disconnected');
-    });
+  console.log('new user connected');
+//sends welcome message upon page entry
+  socket.emit('newMessage', generateMessage('Admin', 'Welcome to the chat app'));
+
+//sends  message to everyone but the current socket.
+  socket.broadcast.emit('newMessage', generateMessage('Admin', 'New user joined'));
+
+//takes a incoming message, and sends it to other connected sockets
+  socket.on('createMessage', (message, callback)=>{
+  console.log('The message is : ', message);
+  io.emit('newMessage', generateMessage(message.from, message.text));
+  callback(`Read:  ${message.text}`);
+});
+  //sending a message to the server on user disconnect
+  socket.on('disconnect', ()=>{
+      console.log('User was disconnected');
+  }); 
+  //io.on close brace vvvv
 });
 
 
