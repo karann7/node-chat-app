@@ -27,5 +27,5 @@ $('#message-form').on('submit', function(e){
     }, function(data){
     console.log('Delivered!' + " "+ data);
   });
- $('[name=message]').trigger("reset");
+    $('[name=message]').val('');
 });
