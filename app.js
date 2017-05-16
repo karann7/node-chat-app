@@ -7,7 +7,7 @@ const express     = require('express'),
 // local dependencies
 const port        = process.env.PORT || 3000,
       publicPath  = path.join(__dirname, '/public'),
-      generateMessage = require('./utils/message.js');
+      {generateMessage, generateLocationMessage} = require('./utils/message.js');
 //the express app gets passed in the http method
 //the http method then gets passed into the socket.io
 const server      = http.createServer(app);
@@ -25,10 +25,16 @@ io.on('connection', (socket)=>{
 
 //takes a incoming message, and sends it to other connected sockets
   socket.on('createMessage', (message, callback)=>{
+
   console.log('The message is : ', message);
+
   io.emit('newMessage', generateMessage(message.from, message.text));
   callback(`Read:  ${message.text}`);
-});
+  });
+  
+  socket.on('createLocationMessage', (coords)=>{
+    io.emit('newLocationMessage', generateLocationMessage('Admin', coords.latitude, coords.longitude));
+  });
   //sending a message to the server on user disconnect
   socket.on('disconnect', ()=>{
       console.log('User was disconnected');
