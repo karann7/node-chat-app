@@ -21,10 +21,11 @@ socket.on('newMessage', function(message){
 $('#message-form').on('submit', function(e){
   //prevents the form from refreshing the page and adding value to URL
   e.preventDefault(); 
-socket.emit('createMessage', {
-  from: 'User',
-  text: $('[name=message]').val()
-}, function(data){
-  console.log('Delivered!' + " "+ data);
-});
+  socket.emit('createMessage', {
+    from: $('[name=user]').val(),
+    text: $('[name=message]').val()
+    }, function(data){
+    console.log('Delivered!' + " "+ data);
+  });
+ $('[name=message]').trigger("reset");
 });
