@@ -5,13 +5,14 @@ socket.on('connect', function(){
   console.log('connected to server');
 
   socket.emit('createMessage', {
-    to: '@apottr',
+    from: '@karann',
     text: 'Hey. this is Karan'
   });
-});
-  socket.on('newMessage', function(message){
+   socket.on('newMessage', function(message){
     console.log(JSON.stringify(message, undefined, 2));
   });
+});
+
 
 socket.on('disconnect', function(){
   console.log('Disconnected from the server');
