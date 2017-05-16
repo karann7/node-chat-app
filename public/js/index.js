@@ -4,10 +4,10 @@ var socket = io();
 socket.on('connect', function(){
   console.log('connected to server');
 
-  socket.emit('createMessage', {
-    from: '@karann',
-    text: 'Hey. this is Karan'
-  });
+  // socket.emit('createMessage', {
+  //   from: '@karann',
+  //   text: 'Hey. this is Karan'
+  // });
    socket.on('newMessage', function(message){
     console.log(JSON.stringify(message, undefined, 2));
   });
