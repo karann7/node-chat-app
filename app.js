@@ -6,6 +6,7 @@ const express     = require('express'),
       path        = require('path');
 // local dependencies
 const port        = process.env.PORT || 3000,
+    isRealString  = require('./utils/validation.js'),
       publicPath  = path.join(__dirname, '/public'),
       {generateMessage, generateLocationMessage} = require('./utils/message.js');
 //the express app gets passed in the http method
@@ -23,11 +24,16 @@ io.on('connection', (socket)=>{
 //sends  message to everyone but the current socket.
   socket.broadcast.emit('newMessage', generateMessage('Admin', 'New user joined'));
 
+  socket.on('join', (params, callback) =>{
+    if(!isRealString(params.name) || !isRealString(params.room)) {
+      callback('Name and room name are required.');
+    }
+    callback();
+  });
+
 //takes a incoming message, and sends it to other connected sockets
   socket.on('createMessage', (message, callback)=>{
-
   console.log(message);
-
   io.emit('newMessage', generateMessage(message.from, message.text));
   callback();
   });
