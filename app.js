@@ -40,13 +40,20 @@ io.on('connection', (socket)=>{
     });
   //takes a incoming message, and sends it to other connected sockets
     socket.on('createMessage', (message, callback)=>{
-    console.log(message);
-    io.emit('newMessage', generateMessage(message.from, message.text));
-    callback();
+    var user = users.getUser(socket.id);
+
+    if(user && isRealString(message.text)){
+    io.to(user.room).emit('newMessage', generateMessage(user.name, message.text));
+    }
+     callback();
     });
     //for sending location I made a separate function rather than injecting inline
     socket.on('createLocationMessage', (coords)=>{
-      io.emit('newLocationMessage', generateLocationMessage('Admin', coords.latitude, coords.longitude));
+      var user = users.getUser(socket.id);
+      if(user){
+      io.to(user.room).emit('newLocationMessage', generateLocationMessage(user.name, coords.latitude, coords.longitude));
+        
+      }
     });
     
     //sending a message to the server on user disconnect
